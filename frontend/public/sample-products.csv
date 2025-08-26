@@ -1,0 +1,11 @@
+name,description,price,stock,category,unit,images,isActive,isFeatured,tags,expiryDays,createdAt,updatedAt
+"Fresh Organic Apples","Crisp and juicy organic apples, perfect for snacking or baking.",120,50,"fruits","kg","/placeholder-product.png",true,true,"organic|fresh",7,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Alphonso Mango","Premium Alphonso mangoes from Ratnagiri, Maharashtra.",250,40,"fruits","kg","/placeholder-product.png",true,true,"seasonal|sweet",5,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Kesar Mango","Juicy Kesar mangoes from Gujarat.",180,35,"fruits","kg","/placeholder-product.png",true,false,"seasonal|sweet",5,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Banana (Robusta)","Fresh Robusta bananas from Kerala.",40,100,"fruits","kg","/placeholder-product.png",true,false,"energy|potassium",6,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Pomegranate","Juicy pomegranates from Maharashtra.",90,60,"fruits","kg","/placeholder-product.png",true,false,"antioxidant|vitamin-c",10,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Coconut","Fresh coconuts from Tamil Nadu.",35,80,"fruits","piece","/placeholder-product.png",true,false,"hydration|fiber",15,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Red Grapes","Sweet red grapes from Nashik.",110,45,"fruits","kg","/placeholder-product.png",true,false,"antioxidant|fresh",7,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Papaya","Ripe papayas from Andhra Pradesh.",45,70,"fruits","kg","/placeholder-product.png",true,false,"fiber|vitamin-c",8,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Guava","Fresh guavas from Uttar Pradesh.",60,55,"fruits","kg","/placeholder-product.png",true,false,"vitamin-c|fiber",7,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
+"Watermelon","Large watermelons from Karnataka.",30,90,"fruits","kg","/placeholder-product.png",true,false,"hydration|summer",5,"2025-08-23T10:00:00Z","2025-08-23T10:00:00Z"
