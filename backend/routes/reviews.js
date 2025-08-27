@@ -4,7 +4,7 @@ const router = express.Router();
 const Review = require('../models/Review');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
-const auth = require('../middleware/auth');
+const { authenticate: auth } = require('../middleware/auth');
 
 // Get reviews for a product
 router.get('/product/:productId', async (req, res) => {
