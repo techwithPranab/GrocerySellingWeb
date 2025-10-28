@@ -1,0 +1,850 @@
+[
+  {
+    "name": "Fresh Organic Apples",
+    "description": "Premium quality organic apples, crisp and sweet. These organic apples are grown without synthetic pesticides or fertilizers, ensuring you get the purest, most nutritious fruit. Perfect for snacking, baking, or adding to salads. Each apple is hand-picked at peak ripeness for maximum flavor and freshness. Rich in fiber, vitamin C, and antioxidants that support overall health and immunity.",
+    "category": "fruits",
+    "price": 4.99,
+    "stock": 100,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Fresh Organic Apples - Front View"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Fresh Organic Apples - Close Up"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Fresh Organic Apples - Basket"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "organic",
+      "fresh",
+      "healthy",
+      "vitamin-c",
+      "antioxidant"
+    ],
+    "brand": "OrganicFresh",
+    "expiryDays": 7,
+    "averageRating": 4.5,
+    "totalReviews": 25
+  },
+  {
+    "name": "Banana - Yelakki",
+    "description": "Fresh Yelakki bananas, naturally sweet and rich in potassium. These premium Yelakki bananas are sourced from the finest farms and known for their exceptional sweetness and creamy texture. Naturally rich in potassium, they help maintain healthy blood pressure and support muscle function. Perfect for breakfast, smoothies, or as a quick energy boost. The thin skin makes them easy to peel and they're ideal for both eating fresh and cooking.",
+    "category": "fruits",
+    "price": 2.49,
+    "stock": 150,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Banana - Yelakki Bunch"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Banana - Yelakki Single"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Banana - Yelakki Cross Section"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "fresh",
+      "sweet",
+      "potassium",
+      "energy",
+      "organic"
+    ],
+    "brand": "Fresh Farms",
+    "expiryDays": 5,
+    "averageRating": 4.2,
+    "totalReviews": 45
+  },
+  {
+    "name": "Orange - Nagpur",
+    "description": "Juicy Nagpur oranges, perfect for fresh juice. These premium Nagpur oranges are famous for their exceptional juiciness and sweet-tangy flavor. Grown in the fertile soils of Nagpur, they contain abundant vitamin C and natural sugars that make them ideal for fresh juice extraction. The thin, easy-to-peel skin and seedless nature make them perfect for both juicing and eating fresh. Rich in antioxidants and fiber, they're great for boosting immunity and digestive health.",
+    "category": "fruits",
+    "price": 3.99,
+    "stock": 80,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Orange - Nagpur Whole"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Orange - Nagpur Sliced"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Orange - Nagpur Juice"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "juicy",
+      "vitamin-c",
+      "fresh",
+      "juice",
+      "seedless"
+    ],
+    "brand": "Citrus Fresh",
+    "expiryDays": 10,
+    "averageRating": 4.0,
+    "totalReviews": 18
+  },
+  {
+    "name": "Mango - Alphonso",
+    "description": "King of fruits - premium Alphonso mangoes from Ratnagiri. These world-renowned Alphonso mangoes are grown in the rich volcanic soil of Ratnagiri and are considered the finest mango variety globally. Known for their golden-yellow color, rich aroma, and unparalleled sweetness, they have a unique fiberless texture that melts in your mouth. Perfect for eating fresh, making juices, or using in traditional Indian desserts. Rich in vitamins A and C, they're a seasonal delight not to be missed.",
+    "category": "fruits",
+    "price": 12.99,
+    "stock": 40,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Mango - Alphonso Whole"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Mango - Alphonso Sliced"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Mango - Alphonso Tree"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "seasonal",
+      "premium",
+      "sweet",
+      "fiberless",
+      "ratnagiri"
+    ],
+    "brand": "Ratnagiri Farms",
+    "expiryDays": 3,
+    "averageRating": 4.8,
+    "totalReviews": 67
+  },
+  {
+    "name": "Grapes - Black Seedless",
+    "description": "Sweet and juicy black seedless grapes",
+    "category": "fruits",
+    "price": 5.49,
+    "stock": 60,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Grapes - Black Seedless"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "seedless",
+      "antioxidant",
+      "fresh"
+    ],
+    "brand": "Grape Valley",
+    "expiryDays": 7,
+    "averageRating": 4.3,
+    "totalReviews": 32
+  },
+  {
+    "name": "Fresh Broccoli",
+    "description": "Green and nutritious broccoli, perfect for healthy meals. This premium broccoli is harvested at peak freshness and packed with essential nutrients. Rich in vitamin C, vitamin K, folate, and fiber, it's a powerhouse of nutrition that supports immune health, bone strength, and digestive wellness. The tight, dark green florets indicate maximum nutrient content. Perfect for steaming, stir-frying, or adding to salads. Known for its cancer-fighting compounds and antioxidant properties.",
+    "category": "vegetables",
+    "price": 3.49,
+    "stock": 50,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Fresh Broccoli Whole"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Fresh Broccoli Florets"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Fresh Broccoli Close Up"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "fresh",
+      "healthy",
+      "green",
+      "vitamin-c",
+      "antioxidant"
+    ],
+    "expiryDays": 5,
+    "averageRating": 4.1,
+    "totalReviews": 28
+  },
+  {
+    "name": "Tomato - Hybrid",
+    "description": "Fresh red tomatoes, perfect for cooking and salads. These hybrid tomatoes are bred for exceptional flavor, juiciness, and disease resistance. With their vibrant red color and firm texture, they're ideal for a wide range of culinary uses. Rich in lycopene, vitamin C, and potassium, they support heart health and provide powerful antioxidants. Perfect for making sauces, sandwiches, salads, or enjoying fresh. The balanced sweet-tart flavor makes them versatile in both raw and cooked preparations.",
+    "category": "vegetables",
+    "price": 2.99,
+    "stock": 120,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Tomato - Hybrid Whole"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Tomato - Hybrid Sliced"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Tomato - Hybrid in Basket"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "fresh",
+      "red",
+      "cooking",
+      "lycopene",
+      "versatile"
+    ],
+    "brand": "Farm Fresh",
+    "expiryDays": 4,
+    "averageRating": 4.0,
+    "totalReviews": 52
+  },
+  {
+    "name": "Onion - Red",
+    "description": "Premium quality red onions, sharp and flavorful",
+    "category": "vegetables",
+    "price": 1.99,
+    "stock": 200,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Onion - Red"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "spicy",
+      "essential",
+      "cooking"
+    ],
+    "brand": "Nashik Onions",
+    "expiryDays": 15,
+    "averageRating": 3.8,
+    "totalReviews": 41
+  },
+  {
+    "name": "Potato - Fresh",
+    "description": "Fresh potatoes, ideal for various Indian dishes",
+    "category": "vegetables",
+    "price": 2.49,
+    "stock": 180,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Potato - Fresh"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "starchy",
+      "versatile",
+      "fresh"
+    ],
+    "brand": "Punjab Farms",
+    "expiryDays": 20,
+    "averageRating": 4.2,
+    "totalReviews": 38
+  },
+  {
+    "name": "Spinach - Fresh",
+    "description": "Nutrient-rich fresh spinach leaves",
+    "category": "vegetables",
+    "price": 1.49,
+    "stock": 70,
+    "unit": "pack",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Spinach - Fresh"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "leafy",
+      "iron-rich",
+      "healthy"
+    ],
+    "brand": "Green Leaf",
+    "expiryDays": 3,
+    "averageRating": 4.4,
+    "totalReviews": 29
+  },
+  {
+    "name": "Whole Milk",
+    "description": "Fresh whole milk from local dairy farms",
+    "category": "dairy",
+    "price": 2.99,
+    "stock": 30,
+    "unit": "l",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Whole Milk"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "dairy",
+      "fresh"
+    ],
+    "brand": "FreshDairy",
+    "expiryDays": 3,
+    "averageRating": 4.3,
+    "totalReviews": 56
+  },
+  {
+    "name": "Amul Cheese Slices",
+    "description": "Creamy processed cheese slices, perfect for sandwiches. Amul's premium processed cheese slices offer consistent quality and rich, creamy flavor in every slice. Made from high-quality milk and carefully processed to maintain nutritional value, these slices are perfect for sandwiches, burgers, pizzas, and snacks. Each slice is individually wrapped for freshness and convenience. Rich in calcium and protein, they provide essential nutrients while adding delicious taste to your meals.",
+    "category": "dairy",
+    "price": 4.49,
+    "stock": 45,
+    "unit": "pack",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Amul Cheese Slices Pack"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Amul Cheese Slices Single"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Amul Cheese Slices on Bread"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "cheese",
+      "processed",
+      "amul",
+      "calcium",
+      "protein"
+    ],
+    "brand": "Amul",
+    "expiryDays": 30,
+    "averageRating": 4.6,
+    "totalReviews": 89
+  },
+  {
+    "name": "Chicken Breast - Boneless",
+    "description": "Fresh boneless chicken breast, antibiotic-free. Premium quality boneless chicken breast from healthy, antibiotic-free birds raised on natural feed. Tender and juicy with optimal fat content, perfect for grilling, baking, stir-frying, or making curries. Rich in high-quality protein and essential nutrients like niacin and selenium. Each piece is carefully trimmed and packaged to maintain freshness. Ideal for health-conscious consumers looking for lean protein options.",
+    "category": "meat",
+    "price": 12.99,
+    "stock": 20,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Chicken Breast - Boneless Raw"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Chicken Breast - Boneless Packaged"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Chicken Breast - Boneless Cooked"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "chicken",
+      "boneless",
+      "protein",
+      "antibiotic-free",
+      "lean"
+    ],
+    "brand": "Fresh Meat Co",
+    "expiryDays": 2,
+    "averageRating": 4.7,
+    "totalReviews": 92
+  },
+  {
+    "name": "Greek Yogurt - Plain",
+    "description": "Thick and creamy Greek yogurt, high in protein",
+    "category": "dairy",
+    "price": 3.99,
+    "stock": 25,
+    "unit": "pack",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Greek Yogurt - Plain"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "yogurt",
+      "protein",
+      "greek"
+    ],
+    "brand": "Dairy Best",
+    "expiryDays": 7,
+    "averageRating": 4.5,
+    "totalReviews": 34
+  },
+  {
+    "name": "Butter - Unsalted",
+    "description": "Pure unsalted butter, perfect for cooking and baking",
+    "category": "dairy",
+    "price": 5.49,
+    "stock": 35,
+    "unit": "pack",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Butter - Unsalted"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "butter",
+      "unsalted",
+      "cooking"
+    ],
+    "brand": "Amul",
+    "expiryDays": 14,
+    "averageRating": 4.4,
+    "totalReviews": 67
+  },
+  {
+    "name": "Chicken Breast - Boneless",
+    "description": "Fresh boneless chicken breast, antibiotic-free",
+    "category": "meat",
+    "price": 12.99,
+    "stock": 20,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Chicken Breast - Boneless"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "chicken",
+      "boneless",
+      "protein"
+    ],
+    "brand": "Fresh Meat Co",
+    "expiryDays": 2,
+    "averageRating": 4.7,
+    "totalReviews": 92
+  },
+  {
+    "name": "Fish - Rohu",
+    "description": "Fresh Rohu fish, cleaned and ready to cook",
+    "category": "meat",
+    "price": 8.99,
+    "stock": 15,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Fish - Rohu"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "fish",
+      "freshwater",
+      "omega-3"
+    ],
+    "brand": "Sea Fresh",
+    "expiryDays": 1,
+    "averageRating": 4.2,
+    "totalReviews": 45
+  },
+  {
+    "name": "Mutton - Curry Cut",
+    "description": "Premium mutton curry cut pieces, tender and flavorful",
+    "category": "meat",
+    "price": 18.99,
+    "stock": 12,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Mutton - Curry Cut"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "mutton",
+      "curry",
+      "tender"
+    ],
+    "brand": "Premium Meats",
+    "expiryDays": 2,
+    "averageRating": 4.5,
+    "totalReviews": 38
+  },
+  {
+    "name": "Basmati Rice - Premium",
+    "description": "Long grain premium basmati rice, aromatic and fluffy",
+    "category": "grains",
+    "price": 6.49,
+    "stock": 50,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Basmati Rice - Premium"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "rice",
+      "basmati",
+      "premium"
+    ],
+    "brand": "India Gate",
+    "expiryDays": 365,
+    "averageRating": 4.6,
+    "totalReviews": 124
+  },
+  {
+    "name": "Wheat Flour - Whole Wheat",
+    "description": "Finely ground whole wheat flour, perfect for chapatis",
+    "category": "grains",
+    "price": 2.99,
+    "stock": 40,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Wheat Flour - Whole Wheat"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "flour",
+      "wheat",
+      "whole"
+    ],
+    "brand": "Ashirvad",
+    "expiryDays": 180,
+    "averageRating": 4.3,
+    "totalReviews": 78
+  },
+  {
+    "name": "Moong Dal - Yellow",
+    "description": "Premium quality yellow moong dal, splits easily",
+    "category": "grains",
+    "price": 4.49,
+    "stock": 35,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Moong Dal - Yellow"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "dal",
+      "moong",
+      "protein"
+    ],
+    "brand": "Tata Sampann",
+    "expiryDays": 365,
+    "averageRating": 4.4,
+    "totalReviews": 56
+  },
+  {
+    "name": "Coca Cola - Original",
+    "description": "Classic Coca Cola, refreshing carbonated drink",
+    "category": "beverages",
+    "price": 1.49,
+    "stock": 100,
+    "unit": "piece",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Coca Cola - Original"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "cola",
+      "carbonated",
+      "refreshing"
+    ],
+    "brand": "Coca Cola",
+    "expiryDays": 180,
+    "averageRating": 4.1,
+    "totalReviews": 203
+  },
+  {
+    "name": "Real Fruit Juice - Orange",
+    "description": "100% pure orange juice, no added preservatives",
+    "category": "beverages",
+    "price": 2.99,
+    "stock": 60,
+    "unit": "pack",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Real Fruit Juice - Orange"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "juice",
+      "orange",
+      "natural"
+    ],
+    "brand": "Real",
+    "expiryDays": 90,
+    "averageRating": 4.2,
+    "totalReviews": 87
+  },
+  {
+    "name": "Mineral Water - Bisleri",
+    "description": "Pure mineral water, hygienically packed",
+    "category": "beverages",
+    "price": 0.99,
+    "stock": 150,
+    "unit": "piece",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Mineral Water - Bisleri"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "water",
+      "mineral",
+      "pure"
+    ],
+    "brand": "Bisleri",
+    "expiryDays": 365,
+    "averageRating": 4.0,
+    "totalReviews": 156
+  },
+  {
+    "name": "Lays Potato Chips - Classic Salted",
+    "description": "Crispy potato chips with perfect salt seasoning. Lays brings you the perfect balance of crispy texture and just the right amount of salt in every chip. Made from premium potatoes and cooked to golden perfection, these chips offer that satisfying crunch you love. Perfect for snacking, parties, or as a side with your favorite meal. Each chip is thinly sliced for maximum crispiness and flavor distribution. A timeless classic that never disappoints.",
+    "category": "snacks",
+    "price": 1.49,
+    "stock": 80,
+    "unit": "pack",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Lays Potato Chips Pack"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Lays Potato Chips Open"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Lays Potato Chips Close Up"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "chips",
+      "potato",
+      "crispy",
+      "salted",
+      "classic"
+    ],
+    "brand": "Lays",
+    "expiryDays": 120,
+    "averageRating": 4.3,
+    "totalReviews": 245
+  },
+  {
+    "name": "Oreo Original Biscuits",
+    "description": "Creamy chocolate sandwich biscuits, perfect with milk. The iconic Oreo biscuit features two chocolate wafers with a sweet, creamy filling that creates the perfect chocolate sandwich experience. Each biscuit is designed for optimal dunking in milk or coffee. Made with high-quality ingredients and the signature Oreo taste that has delighted generations. Perfect for snacking, desserts, or crushing for cookie crusts. A versatile treat that brings joy to every bite.",
+    "category": "snacks",
+    "price": 2.49,
+    "stock": 70,
+    "unit": "pack",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Oreo Original Biscuits Pack"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Oreo Original Biscuits Open"
+      },
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Oreo Original Biscuits Single"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "biscuits",
+      "chocolate",
+      "creamy",
+      "iconic",
+      "dunking"
+    ],
+    "brand": "Oreo",
+    "expiryDays": 180,
+    "averageRating": 4.5,
+    "totalReviews": 312
+  },
+  {
+    "name": "Kurkure Masala Munch",
+    "description": "Spicy and crunchy corn puffs with masala flavor",
+    "category": "snacks",
+    "price": 1.99,
+    "stock": 90,
+    "unit": "pack",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Kurkure Masala Munch"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "puffs",
+      "masala",
+      "crunchy"
+    ],
+    "brand": "Kurkure",
+    "expiryDays": 150,
+    "averageRating": 4.1,
+    "totalReviews": 178
+  },
+  {
+    "name": "Surf Excel Detergent Powder",
+    "description": "Powerful detergent for tough stains, keeps clothes bright",
+    "category": "household",
+    "price": 3.99,
+    "stock": 40,
+    "unit": "kg",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Surf Excel Detergent Powder"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": true,
+    "tags": [
+      "detergent",
+      "cleaning",
+      "stains"
+    ],
+    "brand": "Surf Excel",
+    "expiryDays": 730,
+    "averageRating": 4.4,
+    "totalReviews": 167
+  },
+  {
+    "name": "Harpic Toilet Cleaner",
+    "description": "Powerful toilet cleaner that kills 99.9% germs",
+    "category": "household",
+    "price": 2.49,
+    "stock": 55,
+    "unit": "piece",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Harpic Toilet Cleaner"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "cleaner",
+      "toilet",
+      "germ-kill"
+    ],
+    "brand": "Harpic",
+    "expiryDays": 365,
+    "averageRating": 4.2,
+    "totalReviews": 98
+  },
+  {
+    "name": "Colgate Toothpaste - Total",
+    "description": "Complete protection toothpaste with 12 benefits",
+    "category": "household",
+    "price": 1.99,
+    "stock": 75,
+    "unit": "piece",
+    "images": [
+      {
+        "url": "/placeholder-product.png",
+        "alt": "Colgate Toothpaste - Total"
+      }
+    ],
+    "isActive": true,
+    "isFeatured": false,
+    "tags": [
+      "toothpaste",
+      "oral-care",
+      "protection"
+    ],
+    "brand": "Colgate",
+    "expiryDays": 365,
+    "averageRating": 4.3,
+    "totalReviews": 234
+  }
+]

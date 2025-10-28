@@ -58,7 +58,7 @@ export const productService = {
   // Get a single product by ID
   async getProduct(id: string): Promise<Product> {
     const response = await apiClient.get(`/products/${id}`);
-    return response.data;
+    return response.product;
   },
 
   // Get featured products
@@ -70,19 +70,19 @@ export const productService = {
   // Search products by query
   async searchProducts(query: string, limit: number = 20): Promise<Product[]> {
     const response = await apiClient.get(`/products/search/query?q=${encodeURIComponent(query)}&limit=${limit}`);
-    return response.data.products;
+    return response.products;
   },
 
   // Create a new product
   async createProduct(productData: Omit<Product, '_id' | 'createdAt' | 'updatedAt'>): Promise<Product> {
     const response = await apiClient.post('/products', productData);
-    return response.data;
+    return response.product;
   },
 
   // Update an existing product
   async updateProduct(id: string, updateData: UpdateProductData): Promise<Product> {
     const response = await apiClient.put(`/products/${id}`, updateData);
-    return response.data;
+    return response.product;
   },
 
   // Delete a product
@@ -93,30 +93,30 @@ export const productService = {
   // Get products by category
   async getProductsByCategory(category: ProductCategory, limit: number = 20): Promise<Product[]> {
     const response = await apiClient.get(`/products?category=${category}&limit=${limit}`);
-    return response.data.products;
+    return response.products;
   },
 
   // Get all categories
   async getCategories(): Promise<string[]> {
     const response = await apiClient.get('/products/meta/categories');
-    return response.data.categories;
+    return response.categories;
   },
 
   // Update product stock
   async updateStock(id: string, stock: number): Promise<Product> {
     const response = await apiClient.patch(`/products/${id}/stock`, { stock });
-    return response.data;
+    return response.product;
   },
 
   // Toggle product featured status
   async toggleFeatured(id: string): Promise<Product> {
     const response = await apiClient.patch(`/products/${id}/featured`);
-    return response.data;
+    return response.product;
   },
 
   // Toggle product active status
   async toggleActive(id: string): Promise<Product> {
     const response = await apiClient.patch(`/products/${id}/active`);
-    return response.data;
+    return response.product;
   }
 };

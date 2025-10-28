@@ -1,0 +1,112 @@
+[{
+  "_id": {
+    "$oid": "69005ea718d66e6d1a29fdf2"
+  },
+  "name": "Fresh Organic Apples",
+  "description": "Premium quality organic apples, crisp and sweet",
+  "category": "fruits",
+  "price": 4.99,
+  "stock": 100,
+  "unit": "kg",
+  "images": [
+    {
+      "url": "/placeholder-product.png",
+      "alt": "Fresh Organic Apples",
+      "_id": {
+        "$oid": "69005ea718d66e6d1a29fdf3"
+      }
+    }
+  ],
+  "isActive": true,
+  "isFeatured": true,
+  "tags": [
+    "organic",
+    "fresh",
+    "healthy"
+  ],
+  "brand": "OrganicFresh",
+  "expiryDays": 7,
+  "averageRating": 0,
+  "totalReviews": 0,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-28T06:11:51.894Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-28T06:11:51.894Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69005ea718d66e6d1a29fdf4"
+  },
+  "name": "Fresh Broccoli",
+  "description": "Green and nutritious broccoli, perfect for healthy meals",
+  "category": "vegetables",
+  "price": 3.49,
+  "stock": 50,
+  "unit": "kg",
+  "images": [
+    {
+      "url": "/placeholder-product.png",
+      "alt": "Fresh Broccoli",
+      "_id": {
+        "$oid": "69005ea718d66e6d1a29fdf5"
+      }
+    }
+  ],
+  "isActive": true,
+  "isFeatured": true,
+  "tags": [
+    "fresh",
+    "healthy",
+    "green"
+  ],
+  "expiryDays": 5,
+  "averageRating": 0,
+  "totalReviews": 0,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-28T06:11:51.894Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-28T06:11:51.894Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69005ea718d66e6d1a29fdf6"
+  },
+  "name": "Whole Milk",
+  "description": "Fresh whole milk from local dairy farms",
+  "category": "dairy",
+  "price": 2.99,
+  "stock": 30,
+  "unit": "l",
+  "images": [
+    {
+      "url": "/placeholder-product.png",
+      "alt": "Whole Milk",
+      "_id": {
+        "$oid": "69005ea718d66e6d1a29fdf7"
+      }
+    }
+  ],
+  "isActive": true,
+  "isFeatured": false,
+  "tags": [
+    "dairy",
+    "fresh"
+  ],
+  "brand": "FreshDairy",
+  "expiryDays": 3,
+  "averageRating": 0,
+  "totalReviews": 0,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-28T06:11:51.894Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-28T06:11:51.894Z"
+  }
+}]

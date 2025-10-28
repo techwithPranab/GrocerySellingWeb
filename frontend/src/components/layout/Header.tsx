@@ -31,23 +31,26 @@ const Header: React.FC = () => {
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-      <div className="container">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top bar */}
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">G</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">
+              <span className="text-xl font-bold text-gray-900 hidden sm:block">
                 Fresh Grocery
+              </span>
+              <span className="text-lg font-bold text-gray-900 sm:hidden">
+                Grocery
               </span>
             </Link>
           </div>
 
           {/* Search bar - Desktop */}
-          <div className="hidden md:block flex-1 max-w-lg mx-8">
+          <div className="hidden lg:block flex-1 max-w-lg mx-8">
             <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
@@ -61,27 +64,37 @@ const Header: React.FC = () => {
           </div>
 
           {/* Right side */}
-          <div className="flex items-center space-x-4">
-            {/* Cart */}
-            <Link href="/cart" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
-              <ShoppingCartIcon className="h-6 w-6" />
-              {cartItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItemsCount}
-                </span>
-              )}
-            </Link>
+          <div className="flex items-center space-x-2 md:space-x-4">
+            {/* Search button - Mobile/Tablet */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 text-gray-700 hover:text-primary-600"
+            >
+              <MagnifyingGlassIcon className="h-6 w-6" />
+            </button>
+
+            {/* Cart - Only show for authenticated users */}
+            {isAuthenticated && (
+              <Link href="/cart" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
+                <ShoppingCartIcon className="h-6 w-6" />
+                {cartItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center min-w-[20px]">
+                    {cartItemsCount > 99 ? '99+' : cartItemsCount}
+                  </span>
+                )}
+              </Link>
+            )}
 
             {/* User menu */}
             {isAuthenticated ? (
               <div className="relative group">
-                <button className="flex items-center space-x-2 p-2 text-gray-700 hover:text-primary-600 transition-colors">
+                <button className="flex items-center space-x-1 md:space-x-2 p-2 text-gray-700 hover:text-primary-600 transition-colors">
                   <UserIcon className="h-6 w-6" />
-                  <span className="hidden sm:block">{user?.name}</span>
+                  <span className="hidden md:block text-sm">{user?.name?.split(' ')[0]}</span>
                 </button>
-                
+
                 {/* Dropdown menu */}
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="py-1">
                     <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                       Profile
@@ -89,11 +102,6 @@ const Header: React.FC = () => {
                     <Link href="/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                       My Orders
                     </Link>
-                    {/* {user?.role === 'admin' && (
-                      <Link href="/admin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        Admin Panel
-                      </Link>
-                    )} */}
                     <button
                       onClick={logout}
                       className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
@@ -104,11 +112,11 @@ const Header: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex items-center space-x-2">
-                <Link href="/login" className="btn btn-outline text-sm">
+              <div className="hidden md:flex items-center space-x-1 md:space-x-2">
+                <Link href="/login" className="btn btn-outline text-xs md:text-sm px-2 md:px-4 py-1 md:py-2">
                   Login
                 </Link>
-                <Link href="/register" className="btn btn-primary text-sm">
+                <Link href="/register" className="btn btn-primary text-xs md:text-sm px-2 md:px-4 py-1 md:py-2">
                   Sign Up
                 </Link>
               </div>
@@ -117,7 +125,7 @@ const Header: React.FC = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-700 hover:text-primary-600"
+              className="lg:hidden p-2 text-gray-700 hover:text-primary-600"
             >
               {isMenuOpen ? (
                 <XMarkIcon className="h-6 w-6" />
@@ -129,7 +137,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Navigation - Desktop */}
-        <nav className="hidden md:flex items-center space-x-8 pb-4">
+        <nav className="hidden lg:flex items-center space-x-8 pb-4">
           {navigationItems.map((item) => (
             <Link
               key={item.name}
@@ -142,39 +150,72 @@ const Header: React.FC = () => {
         </nav>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu overlay */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200">
-          <div className="container py-4">
-            {/* Search bar - Mobile */}
-            <form onSubmit={handleSearch} className="mb-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search for products..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                />
-                <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-              </div>
-            </form>
+        <button
+          className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-25 w-full h-full"
+          onClick={() => setIsMenuOpen(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setIsMenuOpen(false);
+            }
+          }}
+          aria-label="Close mobile menu"
+          type="button"
+        >
+          <div className="fixed top-16 left-0 right-0 bg-white border-t border-gray-200 shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+              {/* Search bar - Mobile */}
+              <form onSubmit={handleSearch} className="mb-6">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search for products..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-base"
+                    autoFocus
+                  />
+                  <MagnifyingGlassIcon className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                </div>
+              </form>
 
-            {/* Navigation - Mobile */}
-            <nav className="space-y-2">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block py-2 text-gray-700 hover:text-primary-600 transition-colors font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+              {/* Navigation - Mobile */}
+              <nav className="space-y-1 mb-6">
+                {navigationItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block py-3 px-2 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors font-medium text-base"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
+
+              {/* User actions - Mobile */}
+              {!isAuthenticated && (
+                <div className="border-t border-gray-200 pt-4 space-y-3">
+                  <Link
+                    href="/login"
+                    className="block w-full btn btn-outline text-center py-3"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="block w-full btn btn-primary text-center py-3"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </button>
       )}
     </header>
   );

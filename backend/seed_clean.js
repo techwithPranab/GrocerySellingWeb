@@ -162,7 +162,7 @@ const seedDatabase = async () => {
     console.log('Clearing existing data...');
     await Product.deleteMany({});
     await Offer.deleteMany({});
-    await User.deleteMany({}); // Clear all users for fresh seeding
+    await User.deleteMany({ role: 'admin' }); // Only clear admin users, keep customer data
     await Category.deleteMany({});
 
     // Insert sample categories

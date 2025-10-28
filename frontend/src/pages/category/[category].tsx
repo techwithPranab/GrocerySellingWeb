@@ -4,39 +4,52 @@ import Layout from '@/components/layout/Layout';
 import ProductCard from '@/components/products/ProductCard';
 import { Product, ProductCategory } from '@/types';
 import { productService } from '@/services/productService';
+import { categoryService, Category } from '@/services/categoryService';
 import { ChevronDownIcon, FunnelIcon } from '@heroicons/react/24/outline';
 
 const CategoryPage: React.FC = () => {
   const router = useRouter();
   const { category } = router.query;
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [sortBy, setSortBy] = useState('name');
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [showFilters, setShowFilters] = useState(false);
 
-  const categoryNames: Record<ProductCategory, string> = {
-    fruits: 'Fresh Fruits',
-    vegetables: 'Fresh Vegetables',
-    dairy: 'Dairy Products',
-    meat: 'Meat & Seafood',
-    grains: 'Grains & Pulses',
-    beverages: 'Beverages',
-    snacks: 'Snacks & Packaged Foods',
-    household: 'Household Items'
-  };
+  const categoryNames: Record<string, string> = categories.reduce((acc, cat) => {
+    acc[cat.slug] = cat.name;
+    return acc;
+  }, {} as Record<string, string>);
 
   useEffect(() => {
-    if (category) {
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    if (category && categories.length > 0) {
       fetchCategoryProducts();
     }
-  }, [category, sortBy, priceRange]);
+  }, [category, sortBy, priceRange, categories]);
+
+  const fetchCategories = async () => {
+    try {
+      setCategoriesLoading(true);
+      const fetchedCategories = await categoryService.getCategories();
+      setCategories(fetchedCategories);
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
+    } finally {
+      setCategoriesLoading(false);
+    }
+  };
 
   const fetchCategoryProducts = async () => {
     try {
       setLoading(true);
       const response = await productService.getProducts({
-        category: category as ProductCategory,
+        category: category as string,
         sort: sortBy,
         minPrice: priceRange[0],
         maxPrice: priceRange[1],
@@ -60,7 +73,20 @@ const CategoryPage: React.FC = () => {
     { value: '-createdAt', label: 'Newest First' }
   ];
 
-  if (!category || !categoryNames[category as ProductCategory]) {
+  if (categoriesLoading) {
+    return (
+      <Layout title="Loading...">
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+            <p className="mt-4 text-gray-600">Loading categories...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!category || !categoryNames[category as string]) {
     return (
       <Layout title="Category Not Found">
         <div className="min-h-screen flex items-center justify-center">
@@ -132,7 +158,7 @@ const CategoryPage: React.FC = () => {
                     min="0"
                     max="1000"
                     value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                    onChange={(e) => setPriceRange([priceRange[0], Number.parseInt(e.target.value)])}
                     className="flex-1"
                   />
                   <span className="text-sm text-gray-600">₹0 - ₹{priceRange[1]}</span>
