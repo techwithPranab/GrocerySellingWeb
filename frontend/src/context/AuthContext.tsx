@@ -8,7 +8,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: (data: LoginFormData) => Promise<void>;
   register: (data: RegisterFormData) => Promise<void>;
-  adminLogin: (data: LoginFormData) => Promise<void>;
+  adminLogin: (data: LoginFormData) => Promise<User>;
   logout: () => void;
   refreshUser: () => Promise<void>;
 }
@@ -59,11 +59,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const adminLogin = async (data: LoginFormData): Promise<void> => {
+  const adminLogin = async (data: LoginFormData): Promise<User> => {
     try {
       const response: AuthResponse = await apiClient.post('/auth/admin/login', data);
       apiClient.setToken(response.token);
       setUser(response.user);
+      return response.user;
     } catch (error) {
       throw error;
     }

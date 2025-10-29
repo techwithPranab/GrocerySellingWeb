@@ -16,6 +16,7 @@ const userRoutes = require('./routes/user');
 const contactRoutes = require('./routes/contact');
 const reviewsRoutes = require('./routes/reviews');
 const categoriesRoutes = require('./routes/categories');
+const cloudinaryRoutes = require('./routes/cloudinary');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/reviews', reviewsRoutes);
 app.use('/api/categories', categoriesRoutes);
+app.use('/api/cloudinary', cloudinaryRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

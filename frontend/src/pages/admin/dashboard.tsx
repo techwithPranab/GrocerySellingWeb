@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
-import api from '@/utils/api';
+import apiClient from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import {
@@ -35,10 +35,10 @@ const AdminDashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // if (!isLoading && (!user || user.role !== 'admin')) {
-    //   router.push('/admin/login');
-    //   return;
-    // }
+    if (!isLoading && (!user || user.role !== 'admin')) {
+      router.push('/admin/login');
+      return;
+    }
 
     if (user && user.role === 'admin') {
       fetchDashboardStats();
@@ -47,8 +47,8 @@ const AdminDashboard: React.FC = () => {
 
   const fetchDashboardStats = async () => {
     try {
-      const response = await api.get('/admin/dashboard/stats');
-      setStats(response.data.stats);
+      const response = await apiClient.get('/admin/dashboard/stats');
+      setStats(response.stats);
     } catch (error) {
       console.error('Failed to fetch dashboard stats:', error);
       // Mock data fallback
@@ -56,7 +56,7 @@ const AdminDashboard: React.FC = () => {
         totalUsers: 892,
         totalProducts: 156,
         totalOrders: 1247,
-        totalRevenue: 89567.50,
+        totalRevenue: 89567,
         revenueThisMonth: 45230.75,
         ordersToday: 23
       });
@@ -163,9 +163,9 @@ const AdminDashboard: React.FC = () => {
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {statCards.map((stat) => (
-              <div 
+              <button 
                 key={stat.title} 
-                className="bg-white overflow-hidden shadow rounded-lg cursor-pointer hover:shadow-lg transition-shadow"
+                className="bg-white overflow-hidden shadow rounded-lg cursor-pointer hover:shadow-lg transition-shadow text-left w-full"
                 onClick={() => router.push(stat.link)}
               >
                 <div className="p-5">
@@ -189,7 +189,7 @@ const AdminDashboard: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
 

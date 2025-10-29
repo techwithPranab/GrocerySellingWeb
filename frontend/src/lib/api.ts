@@ -8,7 +8,7 @@ class ApiClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
+      baseURL: (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') + '/api',
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
@@ -66,6 +66,8 @@ class ApiClient {
   public setToken(token: string) {
     this.token = token;
     Cookies.set('token', token, { expires: 7 }); // 7 days
+    // Ensure the token is immediately available for next requests
+    this.loadTokenFromCookie();
   }
 
   public clearToken() {

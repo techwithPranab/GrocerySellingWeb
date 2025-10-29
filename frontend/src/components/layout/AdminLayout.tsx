@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -24,6 +25,10 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Admin Pane
   const router = useRouter();
   const { user, logout } = useAuth();
 
+  // Ensure title is always a string
+  const pageTitle = Array.isArray(title) ? title.join(' ') : String(title || 'Admin Panel');
+  const fullTitle = pageTitle + ' - Fresh Grocery Admin';
+
   const navigation = [
     { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon },
     { name: 'Products', href: '/admin/products', icon: ShoppingBagIcon },
@@ -41,9 +46,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Admin Pane
 
   return (
     <>
-      <title>{title} - Fresh Grocery Admin</title>
-      <meta name="description" content="Admin panel for Fresh Grocery Store" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <Head>
+        <title>{fullTitle}</title>
+        <meta name="description" content="Admin panel for Fresh Grocery Store" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       
       <div className="min-h-screen bg-gray-50">
         {/* Mobile sidebar */}
@@ -188,7 +195,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Admin Pane
               </button>
               
               <div className="flex items-center space-x-4">
-                <h1 className="text-lg font-semibold text-gray-900">{title}</h1>
+                <h1 className="text-lg font-semibold text-gray-900">{pageTitle}</h1>
               </div>
               
               <div className="flex items-center space-x-4">

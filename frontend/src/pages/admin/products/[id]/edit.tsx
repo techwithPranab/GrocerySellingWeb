@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AdminLayout from '@/components/layout/AdminLayout';
+import MultipleImageUpload from '@/components/common/MultipleImageUpload';
 import { useForm } from 'react-hook-form';
 import apiClient from '@/lib/api';
 import toast from 'react-hot-toast';
@@ -13,7 +14,7 @@ interface ProductFormData {
   stock: number;
   category: string;
   unit: string;
-  images: { url: string; alt: string }[];
+  images: { url: string; publicId?: string; alt?: string }[];
   isActive: boolean;
   isFeatured: boolean;
   tags: string;
@@ -25,6 +26,7 @@ const ProductEditPage: React.FC = () => {
   const { id } = router.query;
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [currentProduct, setCurrentProduct] = useState<any>(null);
 
   const {
     register,
@@ -34,6 +36,22 @@ const ProductEditPage: React.FC = () => {
     watch,
     setValue
   } = useForm<ProductFormData>();
+
+  // Generate slug from product name for folder structure
+  const generateSlug = (name: string) => {
+    return name
+      .toLowerCase()
+      // eslint-disable-next-line unicorn/prefer-string-replace-all
+      .replace(/[^a-z0-9]+/g, '-')
+      // eslint-disable-next-line unicorn/prefer-string-replace-all
+      .replace(/(?:^-+|-+$)/g, '');
+  };
+
+  // Get product slug for current product
+  const getProductSlug = () => {
+    const productName = watch('name') || currentProduct?.name || 'unknown-product';
+    return generateSlug(productName);
+  };
 
   const categories = [
     { value: 'fruits', label: 'Fruits' },
@@ -67,6 +85,9 @@ const ProductEditPage: React.FC = () => {
       const response = await apiClient.get(`/admin/products/${productId}`);
       const product = response.product || response.data || response;
       
+      // Store the current product data
+      setCurrentProduct(product);
+      
       // Convert tags string to array if needed
       let tagsString = '';
       if (Array.isArray(product.tags)) {
@@ -94,7 +115,7 @@ const ProductEditPage: React.FC = () => {
       
       // Convert tags string to array
       const tagsArray = data.tags
-        ? data.tags.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag)
+        ? data.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean)
         : [];
 
       const productData = {
@@ -112,17 +133,6 @@ const ProductEditPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const addImageField = () => {
-    const currentImages = watch('images') || [];
-    setValue('images', [...currentImages, { url: '', alt: '' }]);
-  };
-
-  const removeImageField = (index: number) => {
-    const currentImages = watch('images') || [];
-    const newImages = currentImages.filter((_, i) => i !== index);
-    setValue('images', newImages);
   };
 
   if (initialLoading) {
@@ -148,7 +158,31 @@ const ProductEditPage: React.FC = () => {
           </button>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Edit Product</h1>
-            <p className="text-gray-600">Update product information</p>
+            <p className="text-gray-600">Update product information with Cloudinary image upload</p>
+          </div>
+        </div>
+
+        {/* Cloudinary Setup Notice */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-blue-800">Cloudinary Integration Setup</h3>
+              <div className="mt-2 text-sm text-blue-700">
+                <p>To enable image uploads, configure your Cloudinary settings in <code className="bg-blue-100 px-1 rounded">.env.local</code>:</p>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li><code className="bg-blue-100 px-1 rounded">NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME</code> - Your Cloudinary cloud name</li>
+                  <li><code className="bg-blue-100 px-1 rounded">NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET</code> - Your unsigned upload preset</li>
+                </ul>
+                <p className="mt-2">
+                  Create an unsigned upload preset in your Cloudinary dashboard for this to work.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -294,57 +328,16 @@ const ProductEditPage: React.FC = () => {
 
             {/* Images Section */}
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <label htmlFor="product-images" className="block text-sm font-medium text-gray-700">
-                  Product Images
-                </label>
-                <button
-                  type="button"
-                  onClick={addImageField}
-                  className="bg-primary-600 text-white px-3 py-1 rounded-md text-sm hover:bg-primary-700"
-                >
-                  Add Image
-                </button>
+              <div className="block text-sm font-medium text-gray-700 mb-4">
+                Product Images
               </div>
-              {(watch('images') || []).map((image, index) => (
-                <div key={`product-image-${image.url || 'new'}-${index}`} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border border-gray-200 rounded-lg">
-                  <div>
-                    <label htmlFor={`image-url-${index}`} className="block text-sm font-medium text-gray-700">
-                      Image URL
-                    </label>
-                    <input
-                      {...register(`images.${index}.url` as const)}
-                      type="url"
-                      id={`image-url-${index}`}
-                      placeholder="https://example.com/image.jpg"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor={`image-alt-${index}`} className="block text-sm font-medium text-gray-700">
-                      Alt Text
-                    </label>
-                    <div className="flex">
-                      <input
-                        {...register(`images.${index}.alt` as const)}
-                        type="text"
-                        id={`image-alt-${index}`}
-                        placeholder="Image description"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                      />
-                      {index > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => removeImageField(index)}
-                          className="ml-2 mt-1 px-3 py-2 text-red-600 hover:text-red-800"
-                        >
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
+              <MultipleImageUpload
+                currentImages={watch('images') || []}
+                onImagesChange={(images) => setValue('images', images)}
+                productSlug={getProductSlug()}
+                maxImages={8}
+                className="mb-6"
+              />
             </div>
 
             {/* Status Toggles */}

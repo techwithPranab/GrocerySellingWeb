@@ -21,11 +21,17 @@ const AdminLogin: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     try {
       setIsLoading(true);
-      await adminLogin(data);
+      const loggedInUser = await adminLogin(data);
       toast.success('Admin login successful!');
-      router.push('/admin/dashboard');
+      
+      if (loggedInUser.role === 'admin') {
+        router.push('/admin/dashboard');
+      } else {
+        toast.error('Access denied. Admin privileges required.');
+      }
     } catch (error) {
       console.error('Login failed:', error);
+      toast.error('Login failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }
