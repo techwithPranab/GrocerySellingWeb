@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', authenticate, requireCustomer, async (req, res) => {
   try {
     const userId = req.user._id.toString();
-    const cart = CartService.getCart(userId);
+    const cart = await CartService.getCart(userId);
 
     res.json({
       message: 'Cart retrieved successfully',
@@ -32,45 +32,17 @@ router.post('/add', authenticate, requireCustomer, [
 ], async (req, res) => {
   try {
     const errors = validationResult(req);
-    console.log('Validation errors:', errors.array());
     if (!errors.isEmpty()) {
-      return res.status(400).json({ 
-        message: 'Validation failed', 
-        errors: errors.array() 
+      return res.status(400).json({
+        message: 'Validation failed',
+        errors: errors.array()
       });
     }
 
     const { productId, quantity, name, price, unit } = req.body;
     const userId = req.user._id.toString();
 
-    // Get or create cart
-    let cart = CartService.getCart(userId);
-
-    // Check if item already exists in cart
-    const existingItemIndex = cart.items.findIndex(
-      item => item.productId === productId
-    );
-
-    if (existingItemIndex >= 0) {
-      // Update quantity
-      cart.items[existingItemIndex].quantity += quantity;
-    } else {
-      // Add new item
-      cart.items.push({
-        productId,
-        name,
-        price,
-        quantity,
-        unit,
-        subtotal: price * quantity
-      });
-    }
-
-    // Recalculate total
-    cart.total = CartService.calculateTotal(cart.items);
-
-    // Save cart
-    CartService.setCart(userId, cart);
+    const cart = await CartService.addToCart(userId, productId, quantity, name, price, unit);
 
     res.json({
       message: 'Item added to cart successfully',
@@ -79,7 +51,8 @@ router.post('/add', authenticate, requireCustomer, [
 
   } catch (error) {
     console.error('Add to cart error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    const statusCode = error.message.includes('not found') || error.message.includes('stock') ? 400 : 500;
+    res.status(statusCode).json({ message: error.message || 'Internal server error' });
   }
 });
 
@@ -90,9 +63,9 @@ router.put('/item/:productId', authenticate, requireCustomer, [
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ 
-        message: 'Validation failed', 
-        errors: errors.array() 
+      return res.status(400).json({
+        message: 'Validation failed',
+        errors: errors.array()
       });
     }
 
@@ -100,28 +73,7 @@ router.put('/item/:productId', authenticate, requireCustomer, [
     const { quantity } = req.body;
     const userId = req.user._id.toString();
 
-    let cart = CartService.getCart(userId);
-
-    const itemIndex = cart.items.findIndex(
-      item => item.productId === productId
-    );
-
-    if (itemIndex === -1) {
-      return res.status(404).json({ message: 'Item not found in cart' });
-    }
-
-    if (quantity === 0) {
-      // Remove item
-      cart.items.splice(itemIndex, 1);
-    } else {
-      // Update quantity
-      cart.items[itemIndex].quantity = quantity;
-    }
-
-    // Recalculate total
-    cart.total = CartService.calculateTotal(cart.items);
-
-    CartService.setCart(userId, cart);
+    const cart = await CartService.updateCartItem(userId, productId, quantity);
 
     res.json({
       message: 'Cart updated successfully',
@@ -130,7 +82,8 @@ router.put('/item/:productId', authenticate, requireCustomer, [
 
   } catch (error) {
     console.error('Cart update error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    const statusCode = error.message.includes('not found') || error.message.includes('stock') ? 400 : 500;
+    res.status(statusCode).json({ message: error.message || 'Internal server error' });
   }
 });
 
@@ -140,14 +93,7 @@ router.delete('/item/:productId', authenticate, requireCustomer, async (req, res
     const { productId } = req.params;
     const userId = req.user._id.toString();
 
-    let cart = CartService.getCart(userId);
-
-    cart.items = cart.items.filter(item => item.productId !== productId);
-
-    // Recalculate total
-    cart.total = CartService.calculateTotal(cart.items);
-
-    CartService.setCart(userId, cart);
+    const cart = await CartService.removeFromCart(userId, productId);
 
     res.json({
       message: 'Item removed from cart successfully',
@@ -156,7 +102,8 @@ router.delete('/item/:productId', authenticate, requireCustomer, async (req, res
 
   } catch (error) {
     console.error('Cart item removal error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    const statusCode = error.message.includes('not found') ? 404 : 500;
+    res.status(statusCode).json({ message: error.message || 'Internal server error' });
   }
 });
 
@@ -164,11 +111,11 @@ router.delete('/item/:productId', authenticate, requireCustomer, async (req, res
 router.delete('/clear', authenticate, requireCustomer, async (req, res) => {
   try {
     const userId = req.user._id.toString();
-    CartService.deleteCart(userId);
+    const cart = await CartService.clearCart(userId);
 
     res.json({
       message: 'Cart cleared successfully',
-      cart: { items: [], total: 0 }
+      cart
     });
 
   } catch (error) {

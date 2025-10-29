@@ -6,6 +6,13 @@ interface ProductsResponse {
   total: number;
   page: number;
   totalPages: number;
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalProducts: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
 }
 
 interface GetProductsParams {
@@ -46,12 +53,13 @@ export const productService = {
     console.log('Fetching products with params:', searchParams.toString());
     const response = await apiClient.get(`/products?${searchParams.toString()}`);
     console.log('Products response:', response);
-    // Wrap the response in ProductsResponse format
+    // Return the response as is, since it already matches ProductsResponse format
     return {
       products: response.products,
-      total: response.total,
-      page: response.page,
-      totalPages: response.totalPages
+      total: response.pagination.totalProducts,
+      page: response.pagination.currentPage,
+      totalPages: response.pagination.totalPages,
+      pagination: response.pagination
     };
   },
 

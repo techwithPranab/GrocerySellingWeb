@@ -5,6 +5,8 @@ const Product = require('../models/Product');
 const Offer = require('../models/Offer');
 const { authenticate, requireCustomer } = require('../middleware/auth');
 const CartService = require('../services/CartService');
+const EmailService = require('../services/EmailService');
+const NotificationService = require('../services/NotificationService');
 
 const router = express.Router();
 
@@ -31,7 +33,7 @@ router.post('/checkout', authenticate, requireCustomer, [
     const userId = req.user._id;
 
     // Get cart
-    const cart = CartService.getCart(userId.toString());
+    const cart = await CartService.getCart(userId.toString());
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ message: 'Cart is empty' });
     }
@@ -139,12 +141,24 @@ router.post('/checkout', authenticate, requireCustomer, [
     await assignDeliveryPartner(order._id);
 
     // Clear cart
-    CartService.deleteCart(userId.toString());
+    await CartService.clearCart(userId.toString());
 
     // Populate order details
     const populatedOrder = await Order.findById(order._id)
       .populate('userId', 'name email phone')
       .lean();
+
+    // Send order confirmation notifications (don't fail order if notifications fail)
+    try {
+      await NotificationService.sendOrderConfirmation(populatedOrder.userId, {
+        _id: populatedOrder._id,
+        orderNumber: populatedOrder.orderNumber,
+        total: populatedOrder.total,
+        estimatedDelivery: populatedOrder.estimatedDelivery
+      });
+    } catch (notificationError) {
+      console.error('Order confirmation notification failed:', notificationError);
+    }
 
     res.status(201).json({
       message: 'Order placed successfully',

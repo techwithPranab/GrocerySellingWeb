@@ -16,6 +16,10 @@ const ProductsPage: React.FC = () => {
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [showFilters, setShowFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [pagination, setPagination] = useState<any>(null);
 
   const categories: { value: ProductCategory | ''; label: string }[] = [
     { value: '', label: 'All Categories' },
@@ -39,7 +43,7 @@ const ProductsPage: React.FC = () => {
   const [error, setError] = useState<string>('');
 
   // Fetch products from backend
-  const fetchProducts = async () => {
+  const fetchProducts = async (page: number = 1) => {
     try {
       setLoading(true);
       setError('');
@@ -55,9 +59,16 @@ const ProductsPage: React.FC = () => {
       const response = await productService.getProducts({
         ...filters,
         sort,
-        limit: 50
+        page,
+        limit: 20 // Show 20 products per page
       });
+      
       setProducts(response.products);
+      setCurrentPage(response.page);
+      setTotalPages(response.totalPages);
+      setTotalProducts(response.total);
+      setPagination(response.pagination);
+      
       console.log('Fetched products:', response.products);
     } catch (err) {
       console.error('Error fetching products:', err);
@@ -70,14 +81,16 @@ const ProductsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchProducts();
+    setCurrentPage(1);
+    fetchProducts(1);
   }, [selectedCategory, priceRange, sortBy, sortOrder]);
 
   // Debounced search effect
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (searchQuery !== '') {
-        fetchProducts();
+        setCurrentPage(1);
+        fetchProducts(1);
       }
     }, 500);
     
@@ -87,7 +100,7 @@ const ProductsPage: React.FC = () => {
   // Initial load
   useEffect(() => {
     if (searchQuery === '') {
-      fetchProducts();
+      fetchProducts(1);
     }
   }, []);
 
@@ -222,6 +235,8 @@ const ProductsPage: React.FC = () => {
                         setPriceRange({ min: 0, max: 1000 });
                         setSortBy('name');
                         setSortOrder('asc');
+                        setCurrentPage(1);
+                        fetchProducts(1);
                       }}
                       className="w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
                     >
@@ -260,7 +275,74 @@ const ProductsPage: React.FC = () => {
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                 </div>
               ) : (
-                <ProductList products={filteredProducts} />
+                <>
+                  <ProductList products={filteredProducts} />
+                  
+                  {/* Pagination */}
+                  {totalPages > 1 && (
+                    <div className="mt-8 flex items-center justify-between">
+                      <div className="text-sm text-gray-700">
+                        Showing {((currentPage - 1) * 20) + 1} to {Math.min(currentPage * 20, totalProducts)} of {totalProducts} products
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => {
+                            const newPage = currentPage - 1;
+                            setCurrentPage(newPage);
+                            fetchProducts(newPage);
+                          }}
+                          disabled={!pagination?.hasPrev}
+                          className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          Previous
+                        </button>
+                        
+                        {/* Page Numbers */}
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                          let pageNum;
+                          if (totalPages <= 5) {
+                            pageNum = i + 1;
+                          } else if (currentPage <= 3) {
+                            pageNum = i + 1;
+                          } else if (currentPage >= totalPages - 2) {
+                            pageNum = totalPages - 4 + i;
+                          } else {
+                            pageNum = currentPage - 2 + i;
+                          }
+                          
+                          return (
+                            <button
+                              key={pageNum}
+                              onClick={() => {
+                                setCurrentPage(pageNum);
+                                fetchProducts(pageNum);
+                              }}
+                              className={`px-3 py-2 text-sm font-medium rounded-md ${
+                                currentPage === pageNum
+                                  ? 'text-primary-600 bg-primary-50 border border-primary-300'
+                                  : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50'
+                              }`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        })}
+                        
+                        <button
+                          onClick={() => {
+                            const newPage = currentPage + 1;
+                            setCurrentPage(newPage);
+                            fetchProducts(newPage);
+                          }}
+                          disabled={!pagination?.hasNext}
+                          className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               {/* No Results */}
@@ -277,6 +359,8 @@ const ProductsPage: React.FC = () => {
                         setSearchQuery('');
                         setSelectedCategory('');
                         setPriceRange({ min: 0, max: 1000 });
+                        setCurrentPage(1);
+                        fetchProducts(1);
                       }}
                       className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
                     >
