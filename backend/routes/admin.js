@@ -51,7 +51,7 @@ router.get('/analytics', async (req, res) => {
       {
         $group: {
           _id: null,
-          total: { $sum: '$totalAmount' }
+          total: { $sum: '$total' }
         }
       }
     ]);
@@ -68,7 +68,7 @@ router.get('/analytics', async (req, res) => {
       {
         $group: {
           _id: null,
-          total: { $sum: '$totalAmount' }
+          total: { $sum: '$total' }
         }
       }
     ]);
@@ -86,7 +86,7 @@ router.get('/analytics', async (req, res) => {
       {
         $group: {
           _id: null,
-          total: { $sum: '$totalAmount' }
+          total: { $sum: '$total' }
         }
       }
     ]);
@@ -187,7 +187,7 @@ router.get('/analytics', async (req, res) => {
             day: { $dayOfMonth: '$createdAt' }
           },
           orders: { $sum: 1 },
-          revenue: { $sum: '$totalAmount' }
+          revenue: { $sum: '$total' }
         }
       },
       {

@@ -69,10 +69,10 @@ export const productService = {
     return response.product;
   },
 
-  // Get featured products
-  async getFeaturedProducts(): Promise<Product[]> {
-    const response = await apiClient.get('/products?featured=true&limit=8');
-    return response.products;
+  // Get promotional products
+  async getPromotionalProducts(limit: number = 10): Promise<any[]> {
+    const response = await apiClient.get(`/promotional-products?limit=${limit}`);
+    return response.promotionalProducts;
   },
 
   // Search products by query

@@ -62,10 +62,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
         </div>
         <div className="p-4 flex-1 flex flex-col">
-          <h3 className="text-base font-semibold text-gray-900 mb-1 hover:text-primary-600 transition-colors">
+          <h3 className="text-base font-semibold text-gray-900 mb-1 hover:text-primary-600 transition-colors line-clamp-2 h-10 leading-tight">
             {product.name}
           </h3>
-          <p className="text-xs text-gray-500 mb-2 line-clamp-2">{product.description}</p>
           
           {/* Rating Display */}
           {product.averageRating && product.averageRating > 0 && (
@@ -92,7 +91,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     ₹{product.discountedPrice.toFixed(2)}
                     <span className="text-xs text-gray-500 font-normal ml-1">/{product.unit}</span>
                   </span>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 h-4">
                     <span className="text-xs text-gray-400 line-through">
                       ₹{product.price.toFixed(2)}
                     </span>
@@ -104,10 +103,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   </div>
                 </>
               ) : (
-                <span className="text-primary-600 font-bold text-base">
-                  ₹{product.price.toFixed(2)}
-                  <span className="text-xs text-gray-500 font-normal ml-1">/{product.unit}</span>
-                </span>
+                <>
+                  <span className="text-primary-600 font-bold text-base">
+                    ₹{product.price.toFixed(2)}
+                    <span className="text-xs text-gray-500 font-normal ml-1">/{product.unit}</span>
+                  </span>
+                  <div className="h-4"></div>
+                </>
               )}
             </div>
             {product.stock > 0 ? (

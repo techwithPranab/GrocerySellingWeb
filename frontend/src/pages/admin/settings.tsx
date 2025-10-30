@@ -3,6 +3,8 @@ import AdminLayout from '@/components/layout/AdminLayout';
 import api from '@/utils/api';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/router';
 import {
   CogIcon,
   BellIcon,
@@ -42,6 +44,8 @@ interface SecuritySettings {
 }
 
 const Settings: React.FC = () => {
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('store');
   const [loading, setLoading] = useState(false);
 
@@ -79,18 +83,34 @@ const Settings: React.FC = () => {
   });
 
   useEffect(() => {
-    fetchSettings();
-  }, []);
+    if (!isLoading && (!user || user.role !== 'admin')) {
+      router.push('/admin/login');
+      return;
+    }
+
+    // Only fetch settings if user is confirmed admin
+    if (user && user.role === 'admin' && !isLoading) {
+      fetchSettings();
+    }
+  }, [user, isLoading, router]);
 
   const fetchSettings = async () => {
+    // Don't fetch if user is not confirmed as admin
+    if (!user || user.role !== 'admin') {
+      console.log('⏸️ Skipping settings fetch - user not admin:', user);
+      return;
+    }
+    
+    console.log('🚀 Fetching settings for admin user:', user.email);
     try {
       const response = await api.get('/admin/settings');
+      console.log('✅ Settings fetched successfully:', response);
       const { store, notifications, security } = response.data;
       storeForm.reset(store);
       notificationForm.reset(notifications);
       securityForm.reset(security);
     } catch (error) {
-      console.error('Failed to fetch settings:', error);
+      console.error('❌ Failed to fetch settings:', error);
     }
   };
 
@@ -138,6 +158,23 @@ const Settings: React.FC = () => {
     { id: 'notifications', name: 'Notifications', icon: BellIcon },
     { id: 'security', name: 'Security', icon: ShieldCheckIcon },
   ];
+
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading settings...</p>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
+
+  if (!user || user.role !== 'admin') {
+    return null;
+  }
 
   return (
     <AdminLayout>

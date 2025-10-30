@@ -153,9 +153,9 @@ const OrderView: React.FC = () => {
         <div class="invoice-info">
           <div class="customer-info">
             <h3>Bill To:</h3>
-            <p><strong>${order.userId.name}</strong></p>
-            <p>${order.userId.email}</p>
-            <p>${order.userId.phone}</p>
+            <p><strong>${order.userId ? order.userId.name : 'Guest Customer'}</strong></p>
+            <p>${order.userId ? order.userId.email : 'N/A'}</p>
+            <p>${order.userId ? order.userId.phone : 'N/A'}</p>
             <p>${order.deliveryAddress}</p>
           </div>
           <div class="order-info">
@@ -322,15 +322,15 @@ const OrderView: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm font-medium text-gray-500">Name</p>
-                  <p className="text-sm text-gray-900">{order.userId.name}</p>
+                  <p className="text-sm text-gray-900">{order.userId ? order.userId.name : 'Guest Customer'}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-500">Email</p>
-                  <p className="text-sm text-gray-900">{order.userId.email}</p>
+                  <p className="text-sm text-gray-900">{order.userId ? order.userId.email : 'N/A'}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-500">Phone</p>
-                  <p className="text-sm text-gray-900">{order.userId.phone}</p>
+                  <p className="text-sm text-gray-900">{order.userId ? order.userId.phone : 'N/A'}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-500">Payment Method</p>

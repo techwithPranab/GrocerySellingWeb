@@ -12,7 +12,8 @@ import {
   UsersIcon,
   TagIcon,
   ChartBarIcon,
-  Cog6ToothIcon
+  Cog6ToothIcon,
+  MegaphoneIcon
 } from '@heroicons/react/24/outline';
 
 interface AdminLayoutProps {
@@ -32,6 +33,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Admin Pane
   const navigation = [
     { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon },
     { name: 'Products', href: '/admin/products', icon: ShoppingBagIcon },
+    { name: 'Promotional Products', href: '/admin/promotional-products', icon: MegaphoneIcon },
     { name: 'Orders', href: '/admin/orders', icon: ClipboardDocumentListIcon },
     { name: 'Customers', href: '/admin/customers', icon: UsersIcon },
     { name: 'Offers', href: '/admin/offers', icon: TagIcon },

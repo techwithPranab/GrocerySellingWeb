@@ -23,8 +23,19 @@ class ApiClient {
     // Request interceptor
     this.client.interceptors.request.use(
       (config: any) => {
+        // Always check for the latest token from cookies before making a request
+        if (typeof window !== 'undefined') {
+          const currentToken = Cookies.get('token');
+          if (currentToken && currentToken !== this.token) {
+            this.token = currentToken;
+          }
+        }
+        
         if (this.token) {
           config.headers.Authorization = `Bearer ${this.token}`;
+          console.log('🔑 Sending request with token:', this.token.substring(0, 20) + '...');
+        } else {
+          console.log('❌ No token available for request to:', config.url);
         }
         return config;
       },
@@ -39,16 +50,28 @@ class ApiClient {
         return response;
       },
       (error: AxiosError) => {
+        // Only redirect to login if it's actually an authentication error
+        // and not just a missing endpoint or server error
         if (error.response?.status === 401) {
-          this.clearToken();
-          if (typeof window !== 'undefined') {
-            window.location.href = '/login';
+          const errorMessage = (error.response?.data as any)?.message || '';
+          
+          // Only logout and redirect if it's a token-related authentication error
+          if (errorMessage.includes('token') || errorMessage.includes('Access denied')) {
+            this.clearToken();
+            if (typeof window !== 'undefined') {
+              // Only redirect to login if we're not already on a login page
+              const currentPath = window.location.pathname;
+              if (!currentPath.includes('/login')) {
+                window.location.href = '/login';
+              }
+            }
           }
         }
 
         const message = (error.response?.data as any)?.message || 'An error occurred';
         
-        if (typeof window !== 'undefined') {
+        // Don't show toast errors for authentication checks during page load
+        if (typeof window !== 'undefined' && error.response?.status !== 401) {
           toast.error(message);
         }
 

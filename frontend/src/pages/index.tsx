@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout';
 import { Product } from '@/types';
 import { productService } from '@/services/productService';
 import ProductCarousel from '@/components/products/ProductCarousel';
+import PromotionalCarousel from '@/components/products/PromotionalCarousel';
 import HeroSection from '@/components/home/HeroSection';
 import apiClient from '@/lib/api';
 
@@ -19,6 +20,7 @@ interface Offer {
 
 const HomePage: React.FC = () => {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [promotionalProducts, setPromotionalProducts] = useState<any[]>([]);
   const [offers, setOffers] = useState<Offer[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,15 +38,18 @@ const HomePage: React.FC = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [productsResult, offersResult] = await Promise.all([
-          productService.getFeaturedProducts(),
+        const [featuredResult, promotionalResult, offersResult] = await Promise.all([
+          productService.getProducts({ featured: true, limit: 8 }),
+          productService.getPromotionalProducts(12),
           apiClient.get('/offers')
         ]);
-        setFeaturedProducts(productsResult);
+        setFeaturedProducts(featuredResult.products);
+        setPromotionalProducts(promotionalResult);
         setOffers(offersResult.offers || []);
       } catch (error) {
         console.error('Error fetching data:', error);
         setFeaturedProducts([]);
+        setPromotionalProducts([]);
         setOffers([]);
       } finally {
         setLoading(false);
@@ -79,6 +84,23 @@ const HomePage: React.FC = () => {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Promotional Products Carousel */}
+      <section className="py-16 bg-gradient-to-r from-orange-50 to-red-50">
+        <div className="container">
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+            </div>
+          ) : (
+            <PromotionalCarousel
+              promotionalProducts={promotionalProducts}
+              title="Special Promotions"
+              subtitle="Limited time offers on premium products"
+            />
+          )}
         </div>
       </section>
 

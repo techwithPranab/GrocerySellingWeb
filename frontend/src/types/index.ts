@@ -259,3 +259,27 @@ export interface ReviewsResponse {
     ratingBreakdown: Record<string, number>;
   };
 }
+
+export interface PromotionalProduct {
+  _id: string;
+  title: string;
+  description: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+  discountType: 'percentage' | 'fixed' | 'buy_one_get_one' | 'free_shipping';
+  discountValue: number;
+  originalPrice?: number;
+  discountedPrice?: number;
+  buttonText: string;
+  buttonLink: string;
+  isActive: boolean;
+  priority: number;
+  validFrom: string;
+  validUntil?: string;
+  targetAudience: 'all' | 'new_customers' | 'returning_customers' | 'premium_members';
+  clickCount: number;
+  createdAt: string;
+  updatedAt: string;
+}

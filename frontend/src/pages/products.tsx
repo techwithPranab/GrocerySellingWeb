@@ -87,11 +87,15 @@ const ProductsPage: React.FC = () => {
 
   // Debounced search effect
   useEffect(() => {
+    // Skip if searchQuery was set from URL (handled in the initial load effect)
+    const { search } = router.query;
+    if (search && typeof search === 'string' && searchQuery === search) {
+      return;
+    }
+
     const timeoutId = setTimeout(() => {
-      if (searchQuery !== '') {
-        setCurrentPage(1);
-        fetchProducts(1);
-      }
+      setCurrentPage(1);
+      fetchProducts(1);
     }, 500);
     
     return () => clearTimeout(timeoutId);
@@ -99,10 +103,53 @@ const ProductsPage: React.FC = () => {
 
   // Initial load
   useEffect(() => {
-    if (searchQuery === '') {
+    // Read search query from URL parameters
+    const { search } = router.query;
+    if (search && typeof search === 'string') {
+      setSearchQuery(search);
+      // Fetch products with the search query immediately
+      fetchProductsWithSearch(search, 1);
+    } else if (!search) {
       fetchProducts(1);
     }
-  }, []);
+  }, [router.query]);
+
+  // Separate function to fetch products with search
+  const fetchProductsWithSearch = async (searchTerm: string, page: number = 1) => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      const filters: any = {};
+      if (selectedCategory) filters.category = selectedCategory;
+      if (priceRange.min > 0) filters.minPrice = priceRange.min;
+      if (priceRange.max < 1000) filters.maxPrice = priceRange.max;
+      if (searchTerm) filters.search = searchTerm;
+      
+      const sort = `${sortOrder === 'desc' ? '-' : ''}${sortBy}`;
+      
+      const response = await productService.getProducts({
+        ...filters,
+        sort,
+        page,
+        limit: 20
+      });
+      
+      setProducts(response.products);
+      setCurrentPage(response.page);
+      setTotalPages(response.totalPages);
+      setTotalProducts(response.total);
+      setPagination(response.pagination);
+      
+      console.log('Fetched products with search:', searchTerm, response.products);
+    } catch (err) {
+      console.error('Error fetching products:', err);
+      setError('Failed to load products. Please try again.');
+      setProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredProducts = products;
 

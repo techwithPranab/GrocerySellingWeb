@@ -202,7 +202,7 @@ const AdminOrdersPage: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        {typeof order.userId === 'object' ? order.userId.name : 'Customer'}
+                        {order.userId && typeof order.userId === 'object' && order.userId.name ? order.userId.name : 'Guest Customer'}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">

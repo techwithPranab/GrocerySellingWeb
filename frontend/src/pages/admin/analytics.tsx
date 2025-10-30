@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
 import api from '@/utils/api';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/router';
 import { 
   ChartBarIcon, 
   CurrencyRupeeIcon, 
@@ -83,20 +85,38 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, change, color }
 );
 
 const Analytics: React.FC = () => {
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState('7d');
 
   useEffect(() => {
-    fetchAnalytics();
-  }, [dateRange]);
+    if (!isLoading && (!user || user.role !== 'admin')) {
+      router.push('/admin/login');
+      return;
+    }
+
+    // Only fetch analytics if user is confirmed admin
+    if (user && user.role === 'admin' && !isLoading) {
+      fetchAnalytics();
+    }
+  }, [user, isLoading, router, dateRange]);
 
   const fetchAnalytics = async () => {
+    // Don't fetch if user is not confirmed as admin
+    if (!user || user.role !== 'admin') {
+      console.log('⏸️ Skipping analytics fetch - user not admin:', user);
+      return;
+    }
+    
+    console.log('🚀 Fetching analytics for admin user:', user.email);
     try {
       const response = await api.get(`/admin/analytics?range=${dateRange}`);
+      console.log('✅ Analytics fetched successfully:', response);
       setAnalytics(response.data);
     } catch (error) {
-      console.error('Failed to fetch analytics:', error);
+      console.error('❌ Failed to fetch analytics:', error);
       // Mock data for demo
       setAnalytics({
         revenue: { today: 25000, thisMonth: 750000, lastMonth: 680000 },
@@ -122,6 +142,23 @@ const Analytics: React.FC = () => {
       setLoading(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading analytics...</p>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
+
+  if (!user || user.role !== 'admin') {
+    return null;
+  }
 
   if (loading) {
     return (

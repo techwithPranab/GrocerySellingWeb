@@ -61,11 +61,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const adminLogin = async (data: LoginFormData): Promise<User> => {
     try {
+      console.log('🚀 Admin login attempt for:', data.email);
       const response: AuthResponse = await apiClient.post('/auth/admin/login', data);
+      console.log('✅ Admin login response:', response);
+      console.log('🔑 Setting token:', response.token.substring(0, 20) + '...');
       apiClient.setToken(response.token);
       setUser(response.user);
+      console.log('👤 User set:', response.user);
       return response.user;
     } catch (error) {
+      console.error('❌ Admin login failed:', error);
       throw error;
     }
   };

@@ -4,6 +4,7 @@ const Product = require('./models/Product');
 const User = require('./models/User');
 const Offer = require('./models/Offer');
 const Category = require('./models/Category');
+const PromotionalProduct = require('./models/PromotionalProduct');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -152,6 +153,104 @@ const sampleOffers = [
   }
 ];
 
+const samplePromotionalProducts = [
+  {
+    title: 'Fresh Organic Fruits',
+    description: 'Get 25% off on all organic fruits! Limited time offer on premium quality organic produce.',
+    image: {
+      url: '/api/placeholder/800/400',
+      alt: 'Fresh Organic Fruits Banner'
+    },
+    discountType: 'percentage',
+    discountValue: 25,
+    originalPrice: null,
+    discountedPrice: null,
+    buttonText: 'Shop Organic Fruits',
+    buttonLink: '/category/fruits',
+    isActive: true,
+    priority: 10,
+    validFrom: new Date(),
+    validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+    targetAudience: 'all'
+  },
+  {
+    title: 'Premium Dairy Collection',
+    description: 'Buy 2 Get 1 Free on selected dairy products! Fresh milk, cheese, and yogurt at unbeatable prices.',
+    image: {
+      url: '/api/placeholder/800/400',
+      alt: 'Premium Dairy Collection Banner'
+    },
+    discountType: 'buy_one_get_one',
+    discountValue: 1,
+    originalPrice: null,
+    discountedPrice: null,
+    buttonText: 'Explore Dairy',
+    buttonLink: '/category/dairy',
+    isActive: true,
+    priority: 9,
+    validFrom: new Date(),
+    validUntil: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // 10 days from now
+    targetAudience: 'all'
+  },
+  {
+    title: 'Free Shipping on Orders Above ₹500',
+    description: 'No delivery charges on orders above ₹500! Shop more, save more with free shipping.',
+    image: {
+      url: '/api/placeholder/800/400',
+      alt: 'Free Shipping Banner'
+    },
+    discountType: 'free_shipping',
+    discountValue: 0,
+    originalPrice: null,
+    discountedPrice: null,
+    buttonText: 'Start Shopping',
+    buttonLink: '/products',
+    isActive: true,
+    priority: 8,
+    validFrom: new Date(),
+    validUntil: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
+    targetAudience: 'all'
+  },
+  {
+    title: 'New Customer Special',
+    description: 'Welcome bonus: ₹100 off on your first order! Sign up today and get instant discount.',
+    image: {
+      url: '/api/placeholder/800/400',
+      alt: 'New Customer Welcome Banner'
+    },
+    discountType: 'fixed',
+    discountValue: 100,
+    originalPrice: null,
+    discountedPrice: null,
+    buttonText: 'Register Now',
+    buttonLink: '/register',
+    isActive: true,
+    priority: 7,
+    validFrom: new Date(),
+    validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+    targetAudience: 'new_customers'
+  },
+  {
+    title: 'Seasonal Vegetables Sale',
+    description: '30% off on all seasonal vegetables! Fresh, nutritious, and budget-friendly.',
+    image: {
+      url: '/api/placeholder/800/400',
+      alt: 'Seasonal Vegetables Sale Banner'
+    },
+    discountType: 'percentage',
+    discountValue: 30,
+    originalPrice: null,
+    discountedPrice: null,
+    buttonText: 'Shop Vegetables',
+    buttonLink: '/category/vegetables',
+    isActive: true,
+    priority: 6,
+    validFrom: new Date(),
+    validUntil: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+    targetAudience: 'all'
+  }
+];
+
 const seedDatabase = async () => {
   try {
     console.log('Connecting to MongoDB...');
@@ -164,6 +263,7 @@ const seedDatabase = async () => {
     await Offer.deleteMany({});
     await User.deleteMany({}); // Clear all users for fresh seeding
     await Category.deleteMany({});
+    await PromotionalProduct.deleteMany({});
 
     // Insert sample categories
     console.log('Inserting sample categories...');
@@ -179,6 +279,11 @@ const seedDatabase = async () => {
     console.log('Inserting sample offers...');
     await Offer.insertMany(sampleOffers);
     console.log(`${sampleOffers.length} offers inserted`);
+
+    // Insert sample promotional products
+    console.log('Inserting sample promotional products...');
+    await PromotionalProduct.insertMany(samplePromotionalProducts);
+    console.log(`${samplePromotionalProducts.length} promotional products inserted`);
 
     // Insert sample users with hashed passwords
     console.log('Inserting sample users...');

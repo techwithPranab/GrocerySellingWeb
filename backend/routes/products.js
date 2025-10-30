@@ -185,29 +185,33 @@ router.get('/meta/categories', async (req, res) => {
   }
 });
 
-// Get featured products
-router.get('/featured/list', optionalAuth, async (req, res) => {
+// Get promotional products
+router.get('/promotional/list', optionalAuth, async (req, res) => {
   try {
     const { limit = 10 } = req.query;
 
-    const products = await Product.find({ 
-      isActive: true, 
-      isFeatured: true 
+    // Get products that have discounts or are featured with high ratings
+    const products = await Product.find({
+      isActive: true,
+      $or: [
+        { discountedPrice: { $exists: true, $ne: null } },
+        { isFeatured: true, averageRating: { $gte: 4 } }
+      ]
     })
     .sort({ createdAt: -1 })
-    .limit(parseInt(limit))
+    .limit(Number.parseInt(limit))
     .lean();
 
     // Calculate discounted prices
     const productsWithDiscounts = await calculateDiscountedPrices(products);
 
     res.json({
-      message: 'Featured products retrieved successfully',
+      message: 'Promotional products retrieved successfully',
       products: productsWithDiscounts
     });
 
   } catch (error) {
-    console.error('Featured products fetch error:', error);
+    console.error('Promotional products fetch error:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
